@@ -1,16 +1,22 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
 export default class AddItemForm extends Component {
+  onSubmitForm = e => {
+    e.preventDefault();
+    // e.target['inputName'] references `<input name='inputName' />`
+    this.props.onAddItem(e.target.itemToAdd.value);
+  };
   render() {
     return (
-      <form>
+      <form onSubmit={this.onSubmitForm}>
         <input
-          type='text'
-          placeholder='carrots'
-          aria-label='shopping list item'
+          name="itemToAdd"
+          type="text"
+          placeholder="carrots"
+          aria-label="shopping list item"
         />
-        <button type='submit'>Add Item</button>
+        <button type="submit">Add Item</button>
       </form>
-    )
+    );
   }
 }

@@ -1,19 +1,35 @@
-import React from 'react'
+import React from "react";
 
 export default function ShoppingItem(props) {
   return (
     <li>
-      <h2 style={{
-        textDecoration: props.item.checked ? 'line-through': null,
-      }}>
-      {props.item.name}
+      <h2
+        style={{
+          textDecoration: props.item.checked ? "line-through" : null
+        }}
+      >
+        {props.item.name}
       </h2>
-      <button>check</button>
-      <button>delete</button>
+      <button
+        // onClick={props.onCheckItem}
+        //in order to grab the item we are clicking we need to create
+        //this arrow function and pass props.item into the onCheckItem function
+        onClick={() => props.onCheckItem(props.item)}
+        type="button"
+      >
+        check
+      </button>
+      <button
+        // onClick={props.onDeleteItem}
+        onClick={() => props.onDeleteItem(props.item)}
+        type="button"
+      >
+        delete
+      </button>
     </li>
-  )
+  );
 }
 
 ShoppingItem.defaultProps = {
   item: {}
-}
+};

@@ -11,6 +11,39 @@ class App extends Component {
       { name: "bread", checked: false }
     ]
   };
+
+  //callback props are similar to event handler props
+handleDeleteItem = (item) => {
+  // console.log('handle delete item called', { item })
+  const newItems = this.state.shoppingItems.filter(itm => itm !== item)
+  this.setState({
+    shoppingItems: newItems
+  })
+}
+// Notice the = (item) => { usage of an arrow function so 
+// that we don't encounter the this problem.
+handleCheckItem = (item) => {
+  // console.log('handle check item called', { item })
+  const newItems = this.state.shoppingItems.map(itm => {
+    if (itm === item) {
+      itm.checked = !itm.checked
+    }
+    return itm
+  })
+  this.setState({
+    shoppingItems: newItems
+  })
+}
+handleAddItem = (itemName) => {
+  // console.log('handle add item', { itemName })
+  const newItems = [
+    ...this.state.shoppingItems,
+    {name: itemName, checked: false}
+  ]
+  this.setState({
+    shoppingItems: newItems
+  })
+}
   render() {
     return (
       <>
@@ -19,10 +52,16 @@ class App extends Component {
         </header>
         <main>
           <section>
-            <AddItemForm />
+            <AddItemForm 
+              onAddItem={this.handleAddItem}
+            />
           </section>
           <section>
-            <ShoppingList items={this.state.shoppingItems} />
+            <ShoppingList 
+              items={this.state.shoppingItems}
+              onDeleteItem={this.handleDeleteItem}
+              onCheckItem={this.handleCheckItem} 
+            />
           </section>
         </main>
       </>
